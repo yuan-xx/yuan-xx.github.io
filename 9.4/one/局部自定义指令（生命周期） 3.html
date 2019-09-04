@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="box">
+        <input type="text" v-model="value"> 
+        <div style="width: 100px;height: 100px;background:blue;" v-only="value">
+
+        </div>
+    </div>
+</body>
+<script src="vue.js"></script>
+<script>
+    new Vue({
+        el:"#box",
+        data:{
+            value:'这是一段文字'
+        },
+        directives:{
+            only:{
+                bind(a,b){
+                    a.innerHTML=b.value
+                    console.log("bind")
+                },
+                update(a,b){
+                    a.innerHTML=b.value
+                    console.log("update")
+                },
+                componentUpdated(a,b){
+                    console.log("componentUpdated")
+                },
+                inserted(a,b){
+                    console.log("inserted")
+                },
+                unbind(a,b){
+                    console.log("unbind")
+                }
+            }
+        }
+    })
+</script>
+</html>

@@ -1,0 +1,46 @@
+!<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="box">
+        <div style="line-height: 80px;padding: 0 20px;border-bottom: 1px solid #ccc;overflow: hidden;">
+            <div style="padding: 0 15px;float: left;" v-for="i in cu" @click="ac=i">
+                {{i}}
+            </div>      
+        </div>  
+        <keep-alive>
+                <component :is="ac"></component>
+            </keep-alive>
+    </div>
+</body>
+<script src="vue.js"></script>
+<script>
+    Vue.component("one",{
+        template:"<p>one</p>",
+        activated() {
+            console.log("activated")
+        },
+        deactivated() {
+            console.log("deactivated")
+        },
+    })
+    Vue.component("two",{
+        template:"<p>two</p>",
+    })
+    Vue.component("three",{
+        template:"<p>three</p>",
+    })
+    new Vue({
+        el:"#box",
+        data:{
+            cu:["one","two","three"],
+            ac:"one"
+        }
+    })
+</script>
+</html>

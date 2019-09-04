@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<div id="box">
+            <div>
+                <button @click="btn">改变长度</button>
+                <button @click="btn2">改变内容</button>
+                <div v-for="i in arr" >
+                    {{i}}
+                </div>
+            </div>
+            <div>
+                <button @click="btn3">动态创建key</button>
+                <div v-for="i in json">
+                    {{i}}
+                </div>
+            </div>
+		</div>
+	</body>
+	<script src="vue.js"></script>
+	<script>
+		new Vue({
+			el:"#box",
+			data:{
+				arr:[1,2,3,4,5],
+				json:{
+					a:12
+				}
+			},
+			methods:{
+				btn(){
+					
+                    // this.arr.length = 2
+                    this.arr = this.arr.slice(0,2)
+				},
+                btn2(){
+                    // this.arr[0]=12
+					// js
+					//   this.arr.splice(0,1,12)
+                    //  vue
+                   this.$set(this.arr,0,8)
+                },
+                btn3(){
+                //     this.json.b = 23
+                        this.$set(this.json,'b',23)
+					console.log(this.json)
+				}
+			}
+		})
+	</script>
+</html>

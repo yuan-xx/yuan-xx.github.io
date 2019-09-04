@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<div id="box" style="padding: 10px 20px">
+		
+	</div>
+	
+</body>
+<script src="vue.js"></script>
+<script src="vue-resource.js"></script>
+<script>
+	new Vue({
+		el:'#box',
+		created(){
+			this.$http.post('http://walden1.shuqireader.com/webapi/rank/classrelation?_=1564714323337',{
+				type: 1,
+				timestamp: 1564714323330,
+				sign: '5500181b598cc36e40d6f11c3e18e1f7',
+				shuqi_h5: '',
+			},{emulateJSON:true}).then((data)=>{
+				console.log(data.body.data)
+			})
+		}
+	})
+</script>
+</html>

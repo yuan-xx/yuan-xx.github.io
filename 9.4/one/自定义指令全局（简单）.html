@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="box">
+        <div style="width: 100px;height: 100px;background:yellowgreen;transform:translateX(0);transition:0.5s" v-only></div></div>
+</body>
+<script src="vue.js"></script>
+<script>
+    Vue.directive("only", function(a,b){
+        setTimeout(() => {
+            a.style.transform="translateX(200px)"
+        }, 500);
+    })
+    new Vue({
+        el:"#box",
+        
+    })
+</script>
+</html>

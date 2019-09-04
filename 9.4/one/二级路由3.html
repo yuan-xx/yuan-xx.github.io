@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="box">
+        <div style="width: 100%;line-height: 80px;overflow: hidden;border-bottom: 1px solid #cccccc;padding: 0 30px;">
+            <div style="float:left;padding: 0 15px;">
+                <a href="#/">首页</a>
+            </div>
+            <div style="float:left;padding: 0 15px;">
+                <a href="#/list/b/1">列表</a>
+            </div>
+        </div>
+        <div>
+            <keep-alive>
+                <router-view></router-view>
+            </keep-alive>
+        </div>
+    </div>
+    <template id="index">
+        <div>
+            首页
+        </div>
+    </template>
+    <template id="list">
+        <div>
+            <div style="float:left;width: 200px;text-align: center;line-height: 50px;border-right: 1px solid #ccc;min-height: 600px;">
+                <div v-for="i in 5">
+                    <a :href="'#/list/b/'+i">{{i}}</a>
+                </div>
+            </div>
+            <div>
+                <router-view></router-view>
+            </div>
+        </div>
+    </template>
+    <template id="b">
+        <div>
+            {{$route.params.id}}
+        </div>
+    </template>
+</body>
+<script src="vue.js"></script>
+<script src="vue-router.js"></script>
+<script>
+    var index={template:"#index",
+        activated() {
+            console.log("activated index")
+        },
+        deactivated() {
+            console.log("deactivated index")
+        },
+    }
+    var list={template:"#list",
+         activated() {
+            console.log("activated list")
+        },
+        deactivated() {
+            console.log("deactivated list")
+        },   
+    }
+    var b={template:"#b"}
+    var routes=[
+        {
+            path:"/",
+            component:index
+        },
+        {
+            path:"/list",
+            component:list,
+            children:[
+                {
+                    path:"b/:id",
+                    component:b
+                }
+            ]
+        }
+    ]
+    
+    var router=new VueRouter({
+        routes,
+    })
+
+
+    new Vue({
+        el:"#box",
+        router,
+    })
+</script>
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="box">
+        <div>
+            <button @click="num++">
+                {{num}}
+            </button>           
+        </div>
+        <input type="text" v-model="value">
+        <button @click="btn">点击</button>
+    </div>
+</body>
+<script src="vue.js"></script>
+<script>
+    new Vue({
+        el:"#box",
+        data:{
+            num:0,
+            value:"文字",
+            count:3,
+            c_c:5,
+        },
+        updated() {
+            console.log("updated")
+        },
+        methods: {
+            btn(){
+                this.count++
+                console.log("btn"+this.count)
+            }
+        },
+        watch: {
+            num(a,b){
+                console.log(a,b)
+            },
+            count(a,b){
+                console.log("count",a,b)
+            }
+        },
+    })
+</script>
+</html>

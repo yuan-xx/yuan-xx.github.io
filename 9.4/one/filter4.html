@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="box">
+        <div v-for="i in arr">
+            {{i |c_over(value) |bookname}}
+        </div>
+    </div>  
+</body>
+<script src="js/vue.js"></script>
+<script>
+    Vue.filter("bookname",function(a,b){
+        var str="《"+a+"》"
+        return str
+    })
+    new Vue({
+        el:"#box",
+        data:{
+            arr:["师说","渔家傲·秋思","使之塞上","茅屋为秋风所破歌","龟虽寿","送杜少府之出蜀川"],
+            value:'...'
+        },
+        filters:{
+            c_over(a,b){
+                if(a.length>=5){
+                    var str=a.substr(0,6)+b
+                    return str
+                }else{
+                    return a
+                }
+            }
+        }
+    })
+</script>
+</html>

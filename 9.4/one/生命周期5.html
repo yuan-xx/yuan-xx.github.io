@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="box">
+        <div @click="num++">
+            {{num}}
+        </div>
+    </div>
+</body>
+<script src="vue.js"></script>
+<script>
+    var vm= new Vue({
+        el:"#box",
+        data:{
+            num:5
+        },
+        beforeCreate() {
+            console.log("创建前")
+        },
+        created() {
+            console.log("创建后")
+        },
+        beforeMount() {
+            console.log("渲染前")
+        },
+        mounted() {
+            console.log("渲染后")
+        },
+        beforeUpdate() {
+            console.log("更新前")
+        },
+        updated() {
+            console.log("更新后")
+        },
+        beforeDestroy() {
+            console.log("销毁前")
+        },
+        destroyed() {
+            console.log("销毁后")
+        },
+    })
+    vm.$destroy()
+</script>
+</html>

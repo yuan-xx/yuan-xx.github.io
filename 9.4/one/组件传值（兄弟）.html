@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="box">
+        <lee></lee>
+        <lee2></lee2>
+    </div>
+    <template id="lee">
+        <div @click="btn">
+            {{num}}
+        </div>
+    </template>
+    <template id="lee2">
+        <div @click="btn">
+            {{num}}
+        </div>
+    </template>
+</body>
+<script src="vue.js"></script> 
+<script>
+    var bus=new Vue()
+    Vue.component("lee", {
+        template:"#lee",
+        data() {
+            return {
+                num:0
+            }
+        },
+        methods: {
+            btn(){
+                this.num++
+                bus.$emit("lee",this.num)
+            }
+        },
+        mounted() {
+            bus.$on("lee2",(a)=>{
+                this.num=a
+            })
+        },
+    })
+    Vue.component("lee2",{
+        template:"#lee2",
+        data() {
+            return {
+                num:0
+            }
+        },
+        mounted() {
+            bus.$on("lee",(a)=>{
+                this.num=a
+            })
+        },
+        methods: {
+            btn(){
+                this.num++
+                bus.$emit("lee2",this.num)
+            }
+        },
+    })
+    new Vue({
+        el:"#box",
+    })
+</script>
+</html>

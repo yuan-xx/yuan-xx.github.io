@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="box">
+        <input type="text" v-model="value">
+        <div style="width: 100px;height: 100px;background:yellowgreen;" v-only="value">
+        </div>
+    </div>
+</body>
+<script src="vue.js"></script>
+<script>
+    Vue.directive("only", {
+        bind(a,b){
+            a.innerHTML=b.value
+        },
+        update(a,b){
+            console.log(a,b,"update")
+            a.innerHTML=b.value
+        },
+        inserted(a,b){
+            console.log(a,b,"inserted")
+        },
+        componentUpdated(a,b){
+            console.log(a,b,"componentUpdated")
+        },
+        unbind(a,b){
+            console.log("unbind")
+        }
+    })
+    new Vue({
+        el:"#box",
+        data:{
+            value:0
+        }
+    })
+</script>
+</html>

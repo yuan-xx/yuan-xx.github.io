@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="box">
+        <div @click="num++">
+            {{num}}
+        </div>
+        <one :n="num"></one>
+    </div>
+    <template id="one">
+        <div @click="num++">
+            {{num}}
+        </div>
+    </template>
+</body>
+<script src="vue.js"></script>
+<script>
+    Vue.component("one",{
+        template:"#one",
+        props:["n"],
+        data() {
+            return {
+                num:this.n
+            }
+        },
+        watch:{
+            n(a,b){
+                this.num=this.n
+            }
+        }
+    })
+    new Vue({
+        el:"#box",
+        data:{
+            num:5
+        }
+    })
+</script>
+</html>
