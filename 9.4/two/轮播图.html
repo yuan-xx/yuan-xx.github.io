@@ -5,8 +5,115 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
 	<title>Document</title>
+	<style>
+		*{
+			margin: 0;
+			padding: 0;
+			list-style: none;
+		}
+		.slb-enter{
+			left: -500px !important;
+			opacity: 0;
+		}
+		.slb-enter-active{
+			transition: 0.35s
+		}
+		.slb-enter-to{
+
+		}
+		.slb-leave{
+			
+		}
+		.slb-leave-active{
+			transition: 0.35s
+		}
+		.slb-leave-to{
+			left: 500px !important;
+			opacity: 0;
+		}
+		.xsb-enter{
+			left: 500px !important;
+			opacity: 0;
+		}
+		.xsb-enter-active{
+			transition: 0.35s
+		}
+		.xsb-enter-to{
+
+		}
+		.xsb-leave{
+			
+		}
+		.xsb-leave-active{
+			transition: 0.35s
+		}
+		.xsb-leave-to{
+			left: -500px !important;
+			opacity: 0;
+		}
+	</style>
 </head>
 <body>
-	
+	<div id="box">
+		<div>
+			<lunbo></lunbo>
+		</div>
+	</div>
+	<template id="lunbo">
+		<div>
+			<div>
+				<button @click="j_btn">上一个</button>
+				<button @click="s_btn">下一个</button>
+			</div>
+			<div style="width: 500px;margin: 0 auto;position: relative;">
+				<transition :name="t_n" v-for="(i,$index) in arr">
+					<div style="width:500px;position:absolute;left: 0;top: 0;"   v-show="s_type==$index">
+							<img :src="i" alt="" style="width: 100%;">
+					</div>
+				</transition>
+			</div>
+		</div>
+	</template>
+
 </body>
+<script src="vue.js"></script>
+<script>
+	Vue.component("lunbo",{
+		template:"#lunbo",
+		data() {
+			return {
+				s_type:0,
+				t_n:"slb",
+				arr:[
+					"http://img3.imgtn.bdimg.com/it/u=2654744021,2845232492&fm=26&gp=0.jpg",
+					"http://img1.imgtn.bdimg.com/it/u=3297037131,72453196&fm=26&gp=0.jpg",
+					"http://img2.imgtn.bdimg.com/it/u=2637088281,3770093745&fm=26&gp=0.jpg",
+					"http://img2.imgtn.bdimg.com/it/u=2435827928,2331721564&fm=26&gp=0.jpg"
+				]
+			}
+		},
+		methods: {
+			s_btn(){
+				this.t_n='xsb'
+				this.s_type++
+				console.log(this.t_n)
+				if(this.s_type>=3){
+					this.s_type=0
+				}
+			},
+			j_btn(){
+				this.t_n="slb"
+				this.s_type--
+				if(this.s_type<=-1){
+					this.s_type=2
+				}
+			}
+		},
+
+	})
+	new Vue({
+		el:"#box"
+	})
+
+</script>
 </html>

@@ -5,8 +5,153 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
 	<title>Document</title>
+	<style>
+		*{
+			margin: 0;
+			padding: 0;
+		}
+		.s-index{
+			width: 100%;
+			line-height: 50px;
+			background-color: #000;
+			color:#fff;
+			text-align: center;
+		}
+		.xl{
+			position:absolute;
+			width: 100%;
+			top:48px;
+			left:0px;
+		}
+		.one-enter{
+			opacity: 0;
+			top:100px !important;
+		}
+		.one-enter-active{
+			transition: 0.35s
+		}
+		/* .one-enter-to{
+			opacity: 0;
+			top:-100px !important;
+		} */
+		.one-leave{
+			opacity: 0;
+			top:-100px !important;
+		}
+		.one-leave-active{
+			transition: 0.35s
+		}
+		.one-leave-to{
+			opacity: 0;
+			top:100px !important;
+		}
+		.nt-enter,.nt-leave-to{
+			 	opacity: 0;
+			 	left: -100px !important;
+			 }
+			 .nt-enter-active,.nt-leave-active{
+			 	transition: all .3s;
+			 }
+		.twon-enter,twon-leave-to{
+			opacity: 0;
+			top:100px !important;
+		}
+		.twon-enter-active,.twon-leave-active{
+			transition: 0.3s
+		}
+	</style>
 </head>
 <body>
-	
+	<div id="box">
+		<cnav></cnav>
+	</div>
+	<template id="nav">
+		<div>
+			<div style="position: relative">
+				<div class="s-index" @click="btn">
+					{{arr[0].title}}
+				</div>
+				<transition :name="n_t">
+					<div class="xl" style="z-index: 2;" v-show="one_t">
+						<div class="s-index" v-for="i in arr">
+							{{i.title}}
+							<span style="float: right" v-if="i.arr.length" @click="stbtn(i.arr)">></span>
+						</div>
+					</div>
+				</transition>
+				<transition name="twon">
+					<div class="xl" v-show="two_t">
+						<div class="s-index" @click="thre">
+							返回上一级
+						</div>
+						<div class="s-index" v-for="i in two_arr">
+							{{i}}
+						</div>
+					</div>
+				</transition>
+			</div>
+		</div>
+	</template>
 </body>
+<script src="vue.js"></script>
+<script>
+	Vue.component("cnav", {
+		template:"#nav",
+		data() {
+			return {
+				two_t:false,
+				n_t:"one",
+				one_t:false,
+				arr:[
+					{
+						title:"首页",arr:[]
+					},
+					{
+						title:"软件产品",arr:["智能小镇管理系统","大数据管理系统"]
+					},
+					{
+						title:"相关服务",arr:["服务1","服务1","服务1"]
+					},
+					{
+						title:"新闻动态",arr:[]
+					},
+					{
+						title:"公司介绍",arr:[]
+					},
+					{
+						title:"相关服务",arr:[]
+					}
+				],
+				two_arr:[],
+			}
+		},
+		methods: {
+			btn(){
+				if(this.two_t){
+					this.two_t=false
+				}else{
+					this.n_t='one'
+					this.one_t = !this.one_t 
+				}
+				
+			},
+			stbtn(arr){
+				this.n_t='nt'
+				console.log(this.n_t)
+				this.two_arr=arr
+				this.one_t=false
+				setTimeout(() => {
+					this.two_t=true
+				}, 200);
+			},
+			thre(){
+				this.two_t=false
+				this.one_t=true	
+			}
+		},
+	})
+	new Vue({
+		el:"#box",
+	})
+</script>
 </html>
